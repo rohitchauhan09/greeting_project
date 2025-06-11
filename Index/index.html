@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday, My Love!</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Roboto:wght@400;600&family=Merriweather:wght@400;700&family=Noto+Serif+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to bottom, #8b5cf6, #ec4899);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .envelope {
+      width: 300px;
+      height: 200px;
+      background: #f472b6;
+      position: relative;
+      perspective: 1000px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      cursor: pointer;
+      z-index: 2;
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0% { box-shadow: 0 0 5px #f472b6; }
+      50% { box-shadow: 0 0 20px #f472b6; }
+      100% { box-shadow: 0 0 5px #f472b6; }
+    }
+
+    .flap {
+      width: 100%;
+      height: 100px;
+      background: #ec4899;
+      clip-path: polygon(0 100%, 50% 0%, 100% 100%);
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: top;
+      transition: transform 1s ease-in-out;
+    }
+
+    .flap.open {
+      transform: rotateX(-180deg);
+    }
+
+    .card-container {
+      width: 60vw;
+      max-width: 600px;
+      min-height: 400px;
+      background: linear-gradient(145deg, #fef3c7, #f9a8d4);
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      padding: 30px;
+      position: absolute;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      animation: cardFlipOpen 1s ease-in-out forwards;
+      perspective: 1000px;
+      transform-style: preserve-3d;
+      cursor: pointer;
+      border: 4px solid #ec4899;
+    }
+
+    .card-container.closing {
+      animation: cardFlipClose 1s ease-in-out forwards;
+    }
+
+    @keyframes cardFlipOpen {
+      from { transform: rotateY(90deg); opacity: 0; }
+      to { transform: rotateY(0deg); opacity: 1; }
+    }
+
+    @keyframes cardFlipClose {
+      from { transform: rotateY(0deg); opacity: 1; }
+      to { transform: rotateY(-90deg); opacity: 0; }
+    }
+
+    @keyframes scaleRotate {
+      from { opacity: 0; transform: scale(0.5) rotate(-10deg); }
+      to { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .message-box p {
+      font-size: 1.3rem;
+      margin: 10px 0;
+      color: #4b0082;
+      font-weight: 600;
+      font-family: 'Roboto', sans-serif;
+      animation: scaleRotate 0.8s ease-in-out forwards;
+      white-space: normal;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .message-box .english-poetry {
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #c026d3;
+      font-family: 'Merriweather', serif;
+      background: rgba(255, 192, 203, 0.3);
+      animation: slideUp 1s ease-in-out forwards;
+      padding: 15px;
+      border-left: 4px solid #ec4899;
+      line-height: 1.6;
+    }
+
+    .message-box .hindi-poetry {
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #9f1239;
+      font-family: 'Noto Serif Devanagari', serif;
+      background: rgba(255, 245, 158, 0.3);
+      animation: fadeInLeft 1s ease-in-out forwards;
+      padding: 15px;
+      border-right: 4px solid #ec4899;
+      line-height: 1.6;
+    }
+
+    .card-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #c026d3;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      margin-bottom: 1.5rem;
+      font-family: 'Dancing Script', cursive;
+    }
+
+    .float-icon {
+      position: absolute;
+      font-size: 24px;
+      opacity: 0.7;
+      animation: float 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(10deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+
+    @keyframes confetti {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+
+    .confetti {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      animation: confetti 3s ease-in-out forwards;
+    }
+
+    .confetti.circle { border-radius: 50%; }
+    .confetti.square { border-radius: 0; }
+  </style>
+</head>
+<body>
+  <div class="envelope" id="envelope">
+    <div class="flap" id="flap"></div>
+  </div>
+
+  <div class="card-container" id="card">
+    <div class="card-title">💖 Happy Birthday, My Love! 💖</div>
+    <div class="message-box" id="message-box"></div>
+  </div>
+
+  <script>
+    const envelope = document.getElementById('envelope');
+    const flap = document.getElementById('flap');
+    const card = document.getElementById('card');
+    const messageBox = document.getElementById('message-box');
+
+    const messages = [
+      "तुम्हारी मुस्कान मेरे दिल की धड़कन है,<br>जन्मदिन पर यह प्यार तुम्हें अर्पण है।<br>(Your smile is my heartbeat,<br>On your birthday, this love is my offering.)",
+      "Is your smile made of magic? Because it lights up my world.",
+      "With you, every moment feels like a fairy tale. 💫",
+      "Your love is my dawn, your kiss my sky,<br>A canvas of stars where my dreams fly high.<br>On this birthday, my heart does sing,<br>For you, my love, are my everything.",
+      "तेरे प्यार का रंग मेरे जीवन में बस्ता है,<br>हर जन्मदिन तेरा, मेरा दिल सजाता है।<br>(The color of your love resides in my life,<br>Every birthday of yours adorns my heart.)",
+      "In your eyes, I see my forever. ✨",
+      "Happy Birthday to the one who makes my soul sing. 🎂💖",
+      "Through seasons and years, my heart you hold,<br>A tale of love, forever told.<br>Your birthday shines, a radiant gleam,<br>My heart's delight, my sweetest dream.",
+      "तुम्हारा हर पल मेरे लिए अनमोल है,<br>जन्मदिन की खुशी में मेरा दिल डूबा है।<br>(Every moment of yours is priceless to me,<br>My heart is immersed in your birthday joy.)",
+      "My heart is yours, today and always. ❤️"
+    ];
+
+    let index = 0;
+
+    envelope.addEventListener('click', () => {
+      flap.classList.add('open');
+      setTimeout(() => {
+        envelope.style.display = 'none';
+        card.style.display = 'flex';
+        showMessage();
+      }, 1000);
+    });
+
+    card.addEventListener('click', () => {
+      if (index < messages.length) {
+        showMessage();
+      } else {
+        card.classList.add('closing');
+        setTimeout(() => {
+          resetCard();
+        }, 1000);
+      }
+    });
+
+    function showMessage() {
+      if (index < messages.length) {
+        messageBox.innerHTML = ''; // Clear previous message
+        const p = document.createElement('p');
+        p.innerHTML = messages[index];
+        if (index === 0 || index === 4 || index === 8) { // Hindi poetry
+          p.classList.add('hindi-poetry');
+        } else if (index === 3 || index === 7) { // English poetry
+          p.classList.add('english-poetry');
+        }
+        messageBox.appendChild(p);
+        index++;
+        createConfetti();
+      }
+    }
+
+    function resetCard() {
+      card.style.display = 'none';
+      envelope.style.display = 'block';
+      flap.classList.remove('open');
+      card.classList.remove('closing');
+      messageBox.innerHTML = '';
+      index = 0;
+    }
+
+    function createFloatIcon(type) {
+      const icon = document.createElement('div');
+      icon.classList.add('float-icon');
+      icon.innerHTML = type === 'heart' ? '❤️' : '✨';
+      icon.style.left = `${Math.random() * window.innerWidth}px`;
+      icon.style.top = `${Math.random() * window.innerHeight}px`;
+      icon.style.animationDelay = `${Math.random() * 2}s`;
+      document.body.appendChild(icon);
+      setTimeout(() => icon.remove(), 6000);
+    }
+
+    function createConfetti() {
+      const shapes = ['circle', 'square'];
+      for (let i = 0; i < 20; i++) {
+        const confetti = document.createElement('div');
+        const shape = shapes[Math.floor(Math.random() * shapes.length)];
+        confetti.classList.add('confetti', shape);
+        confetti.style.left = `${Math.random() * window.innerWidth}px`;
+        confetti.style.top = `${Math.random() * 100}px`;
+        confetti.style.background = ['#f472b6', '#ec4899', '#c084fc'][Math.floor(Math.random() * 3)];
+        confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 3000);
+      }
+    }
+
+    setInterval(() => createFloatIcon('heart'), 2000);
+    setInterval(() => createFloatIcon('star'), 2500);
+  </script>
+</body>
+</html>
